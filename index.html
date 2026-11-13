@@ -3,20 +3,27 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Shahzaib — Software Engineer & Product Designer</title>
+  <title>Shahzaib — Full-Stack Developer & UI/UX Expert</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <script src="https://unpkg.com/lucide@latest"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
   <script>
     tailwind.config = {
       darkMode: 'class',
       theme: {
         extend: {
           fontFamily: {
-            sans: ['Inter', 'sans-serif'],
+            sans: ['Plus Jakarta Sans', 'sans-serif'],
             mono: ['JetBrains Mono', 'monospace'],
+          },
+          colors: {
+            background: '#030712',
+            surface: '#0f172a',
+            surfaceHover: '#1e293b',
+            border: '#1e293b',
           }
         }
       }
@@ -24,92 +31,363 @@
   </script>
   <style>
     body {
-      background-color: #09090b;
-      color: #fafafa;
+      background-color: #030712;
+      color: #f8fafc;
       overflow-x: hidden;
     }
-    /* Subtle Top Ambient Light (Linear / Vercel Aesthetic) */
-    .ambient-glow {
+    .bg-mesh {
       position: fixed;
-      top: -20%;
-      left: 50%;
-      transform: translateX(-50%);
-      width: 900px;
-      height: 500px;
-      background: radial-gradient(ellipse at center, rgba(255, 255, 255, 0.06) 0%, rgba(16, 185, 129, 0.04) 40%, transparent 70%);
-      pointer-events: none;
+      top: 0; left: 0; width: 100%; height: 100%;
       z-index: -1;
+      background: radial-gradient(circle at 15% 20%, rgba(16, 185, 129, 0.08) 0%, transparent 40%),
+                  radial-gradient(circle at 85% 80%, rgba(59, 130, 246, 0.08) 0%, transparent 40%),
+                  radial-gradient(circle at 50% 50%, rgba(168, 85, 247, 0.05) 0%, transparent 50%);
     }
-    /* Fine Architectural Grid */
-    .bg-grid {
-      background-size: 48px 48px;
-      background-image: 
-        linear-gradient(to right, rgba(255, 255, 255, 0.025) 1px, transparent 1px),
-        linear-gradient(to bottom, rgba(255, 255, 255, 0.025) 1px, transparent 1px);
-      mask-image: radial-gradient(ellipse 80% 60% at 50% 0%, #000 60%, transparent 100%);
-    }
-    /* Spotlight Bento Cards */
-    .spotlight-card {
-      position: relative;
-      background: rgba(18, 18, 21, 0.75);
+    .bento-card {
+      background: rgba(15, 23, 42, 0.6);
       border: 1px solid rgba(255, 255, 255, 0.08);
       backdrop-filter: blur(16px);
-      overflow: hidden;
-      transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.3s ease;
+      transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
     }
-    .spotlight-card::before {
-      content: "";
-      position: absolute;
-      inset: 0;
-      background: radial-gradient(
-        600px circle at var(--mouse-x, 50%) var(--mouse-y, 50%),
-        rgba(255, 255, 255, 0.07),
-        transparent 40%
-      );
-      opacity: 0;
-      transition: opacity 0.3s ease;
-      pointer-events: none;
-    }
-    .spotlight-card:hover::before {
-      opacity: 1;
-    }
-    .spotlight-card:hover {
-      border-color: rgba(255, 255, 255, 0.18);
-      transform: translateY(-2px);
+    .bento-card:hover {
+      border-color: rgba(16, 185, 129, 0.4);
+      transform: translateY(-4px);
+      box-shadow: 0 20px 40px -15px rgba(16, 185, 129, 0.15);
     }
     .glass-nav {
-      background: rgba(12, 12, 14, 0.78);
+      background: rgba(15, 23, 42, 0.85);
       backdrop-filter: blur(20px);
-      border: 1px solid rgba(255, 255, 255, 0.09);
+      border: 1px solid rgba(255, 255, 255, 0.12);
     }
-    /* Smooth Scroll Reveal */
-    .reveal {
-      opacity: 0;
-      transform: translateY(18px);
-      transition: all 0.7s cubic-bezier(0.16, 1, 0.3, 1);
-    }
-    .reveal.visible {
-      opacity: 1;
-      transform: translateY(0);
+    .glow-text {
+      text-shadow: 0 0 30px rgba(16, 185, 129, 0.3);
     }
   </style>
 </head>
-<body class="antialiased selection:bg-white/20 selection:text-white">
+<body class="antialiased selection:bg-emerald-500/30 selection:text-emerald-200">
 
-  <div class="ambient-glow"></div>
-  <div class="fixed inset-0 bg-grid pointer-events-none z-[-1]"></div>
+  <div class="bg-mesh"></div>
 
-  <!-- Floating Minimal Navbar -->
-  <header class="fixed top-5 inset-x-0 z-50 flex justify-center px-4">
-    <nav class="glass-nav rounded-full px-4 py-2 flex items-center gap-5 sm:gap-7 shadow-[0_10px_40px_-10px_rgba(0,0,0,0.8)]">
-      <a href="#" class="font-mono text-xs sm:text-sm font-medium text-white flex items-center gap-2 tracking-tight">
-        <span class="w-2 h-2 rounded-full bg-emerald-400"></span>
+  <!-- Floating Glass Navbar -->
+  <header class="fixed top-4 inset-x-0 z-50 flex justify-center px-4">
+    <nav class="glass-nav rounded-full px-5 py-2.5 flex items-center gap-6 shadow-2xl">
+      <a href="#" class="font-mono text-sm font-bold text-white flex items-center gap-2">
+        <span class="w-2.5 h-2.5 rounded-full bg-emerald-400 animate-ping"></span>
         <span id="navName">shahzaib.dev</span>
       </a>
-      <div class="hidden sm:flex items-center gap-6 text-xs font-medium text-zinc-400">
-        <a href="#about" class="hover:text-white transition-colors">Overview</a>
-        <a href="#projects" class="hover:text-white transition-colors">Work</a>
-        <a href="#experience" class="hover:text-white transition-colors">Experience</a>
-        <a href="#contact" class="hover:text-white transition-colors">Contact</a>
+      <div class="hidden sm:flex items-center gap-6 text-xs font-medium text-zinc-300">
+        <a href="#about" class="hover:text-emerald-400 transition">About</a>
+        <a href="#skills" class="hover:text-emerald-400 transition">Skills</a>
+        <a href="#projects" class="hover:text-emerald-400 transition">Projects</a>
+        <a href="#contact" class="hover:text-emerald-400 transition">Contact</a>
       </div>
-      <button onclick="openCustomizer()" class="text-xs font-medium bg-white text-zinc-950 px-3.5 py-1.5 rounded-full hover:bg-zinc-200 transition flex items
+      <!-- PROMOTE CUSTOMIZE BUTTON -->
+      <button onclick="openCustomizer()" class="text-xs font-bold bg-emerald-500 text-zinc-950 px-4 py-2 rounded-full hover:bg-emerald-400 transition flex items-center gap-1.5 shadow-lg shadow-emerald-500/30">
+        <i data-lucide="sliders-horizontal" class="w-3.5 h-3.5"></i>
+        <span>Customize Site</span>
+      </button>
+    </nav>
+  </header>
+
+  <main class="max-w-6xl mx-auto px-4 sm:px-6 pt-32 pb-24 space-y-24">
+
+    <!-- Hero Section -->
+    <section class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center pt-6">
+      <div class="lg:col-span-7 space-y-6">
+        <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 text-xs font-mono">
+          <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+          <span id="heroStatus">Available for freelance & full-time roles</span>
+        </div>
+
+        <h1 class="text-4xl sm:text-6xl font-extrabold tracking-tight text-white leading-[1.1]">
+          Hi, I'm <span id="heroName" class="text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 via-teal-200 to-sky-400 glow-text">Shahzaib</span>.<br />
+          <span id="heroHeadline" class="text-zinc-300 font-semibold text-2xl sm:text-4xl mt-2 block">I build high-end 3D & Web experiences.</span>
+        </h1>
+
+        <p id="heroBio" class="max-w-xl text-zinc-400 text-base sm:text-lg leading-relaxed">
+          Full-stack developer & creative technologist crafting immersive digital products with cutting-edge web technologies and fluid animations.
+        </p>
+
+        <div class="flex flex-wrap items-center gap-3 pt-2">
+          <a href="#projects" class="px-6 py-3 rounded-xl bg-emerald-500 text-zinc-950 font-bold text-sm hover:bg-emerald-400 transition shadow-lg shadow-emerald-500/25 flex items-center gap-2">
+            <span>Explore Work</span>
+            <i data-lucide="arrow-down-right" class="w-4 h-4"></i>
+          </a>
+          <!-- HERO CUSTOMIZE BUTTON ALSO -->
+          <button onclick="openCustomizer()" class="px-6 py-3 rounded-xl bg-white/10 hover:bg-white/20 text-white font-bold text-sm border border-white/20 transition flex items-center gap-2">
+            <i data-lucide="sparkles" class="w-4 h-4 text-emerald-400"></i>
+            <span>Edit Details Here</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- 3D Canvas Box -->
+      <div class="lg:col-span-5">
+        <div class="bento-card rounded-3xl p-6 relative overflow-hidden h-[360px] flex flex-col justify-between">
+          <div class="absolute inset-0 opacity-40 pointer-events-none" id="canvas-container"></div>
+          <div class="flex items-center justify-between text-xs font-mono text-zinc-400 z-10">
+            <span class="flex items-center gap-1.5"><i data-lucide="box" class="w-4 h-4 text-emerald-400"></i> 3D INTERACTIVE</span>
+            <span class="animate-pulse text-emerald-400">Live</span>
+          </div>
+          <div class="z-10 bg-slate-900/90 backdrop-blur-md p-4 rounded-2xl border border-white/10">
+            <p class="text-xs font-mono text-emerald-400">TECH EXPERTISE</p>
+            <p class="text-sm font-bold text-white mt-0.5">Full Stack & Immersive UI</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Bento Grid About -->
+    <section id="about" class="grid grid-cols-1 md:grid-cols-3 gap-6">
+      <div class="bento-card rounded-3xl p-6 flex flex-col justify-between">
+        <div class="flex items-center justify-between text-zinc-400 text-xs font-mono">
+          <span class="flex items-center gap-1.5"><i data-lucide="map-pin" class="w-4 h-4 text-emerald-400"></i> LOCATION</span>
+          <span id="liveClock" class="text-emerald-400 font-bold">PKT --:--</span>
+        </div>
+        <div class="mt-10">
+          <p id="heroLocation" class="text-2xl font-bold text-white">Islamabad, Pakistan</p>
+          <p class="text-xs text-zinc-400 mt-1">Available globally</p>
+        </div>
+      </div>
+
+      <div class="bento-card rounded-3xl p-6 md:col-span-2 flex flex-col justify-between">
+        <div class="flex items-center justify-between text-zinc-400 text-xs font-mono mb-6">
+          <span class="flex items-center gap-1.5"><i data-lucide="award" class="w-4 h-4 text-sky-400"></i> STATS</span>
+          <span>Verified</span>
+        </div>
+        <div class="grid grid-cols-3 gap-4 text-center">
+          <div class="p-4 rounded-2xl bg-white/5 border border-white/5">
+            <p class="text-2xl sm:text-3xl font-extrabold text-white">25+</p>
+            <p class="text-xs text-zinc-400 mt-1 font-mono">Projects</p>
+          </div>
+          <div class="p-4 rounded-2xl bg-white/5 border border-white/5">
+            <p class="text-2xl sm:text-3xl font-extrabold text-emerald-400">99%</p>
+            <p class="text-xs text-zinc-400 mt-1 font-mono">Satisfaction</p>
+          </div>
+          <div class="p-4 rounded-2xl bg-white/5 border border-white/5">
+            <p class="text-2xl sm:text-3xl font-extrabold text-sky-400">3+</p>
+            <p class="text-xs text-zinc-400 mt-1 font-mono">Years Exp</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Skills Section -->
+    <section id="skills" class="space-y-6">
+      <div>
+        <p class="text-xs font-mono text-emerald-400 uppercase tracking-wider">Expertise</p>
+        <h2 class="text-3xl font-bold text-white mt-1">Core Tech Stack</h2>
+      </div>
+      <div class="grid grid-cols-2 sm:grid-cols-4 gap-4">
+        <div class="bento-card rounded-2xl p-5 flex items-center gap-3">
+          <div class="p-3 rounded-xl bg-emerald-500/10 text-emerald-400"><i data-lucide="code-2" class="w-6 h-6"></i></div>
+          <div><h4 class="font-bold text-white text-sm">Frontend</h4><p class="text-xs text-zinc-400">React, Next.js</p></div>
+        </div>
+        <div class="bento-card rounded-2xl p-5 flex items-center gap-3">
+          <div class="p-3 rounded-xl bg-sky-500/10 text-sky-400"><i data-lucide="server" class="w-6 h-6"></i></div>
+          <div><h4 class="font-bold text-white text-sm">Backend</h4><p class="text-xs text-zinc-400">Node.js, Express</p></div>
+        </div>
+        <div class="bento-card rounded-2xl p-5 flex items-center gap-3">
+          <div class="p-3 rounded-xl bg-purple-500/10 text-purple-400"><i data-lucide="database" class="w-6 h-6"></i></div>
+          <div><h4 class="font-bold text-white text-sm">Database</h4><p class="text-xs text-zinc-400">PostgreSQL, Prisma</p></div>
+        </div>
+        <div class="bento-card rounded-2xl p-5 flex items-center gap-3">
+          <div class="p-3 rounded-xl bg-amber-500/10 text-amber-400"><i data-lucide="cpu" class="w-6 h-6"></i></div>
+          <div><h4 class="font-bold text-white text-sm">Tools & 3D</h4><p class="text-xs text-zinc-400">Git, Three.js</p></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Projects Section -->
+    <section id="projects" class="space-y-6">
+      <div class="flex items-center justify-between">
+        <div>
+          <p class="text-xs font-mono text-emerald-400 uppercase tracking-wider">Portfolio</p>
+          <h2 class="text-3xl font-bold text-white mt-1">Featured Projects</h2>
+        </div>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <article class="bento-card rounded-3xl p-6 flex flex-col justify-between group">
+          <div>
+            <span class="text-xs font-mono text-emerald-400 bg-emerald-500/10 px-3 py-1 rounded-full border border-emerald-500/20">AI & 3D SaaS</span>
+            <h3 class="text-xl font-bold text-white mt-4">PulseVerse AI 3D Studio</h3>
+            <p class="text-sm text-zinc-400 mt-2">Immersive platform with real-time 3D object rendering and semantic AI search.</p>
+          </div>
+          <div class="flex gap-2 mt-6 pt-4 border-t border-white/5 text-xs font-mono text-emerald-300">
+            <span>Next.js</span><span>•</span><span>Three.js</span><span>•</span><span>OpenAI</span>
+          </div>
+        </article>
+
+        <article class="bento-card rounded-3xl p-6 flex flex-col justify-between group">
+          <div>
+            <span class="text-xs font-mono text-sky-400 bg-sky-500/10 px-3 py-1 rounded-full border border-sky-500/20">Fintech Platform</span>
+            <h3 class="text-xl font-bold text-white mt-4">LedgerFlow Enterprise</h3>
+            <p class="text-sm text-zinc-400 mt-2">Real-time cashflow analytics dashboard with automated invoice tracking.</p>
+          </div>
+          <div class="flex gap-2 mt-6 pt-4 border-t border-white/5 text-xs font-mono text-sky-300">
+            <span>React</span><span>•</span><span>Tailwind</span><span>•</span><span>PostgreSQL</span>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="bento-card rounded-3xl p-8 sm:p-12">
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
+        <div class="space-y-4">
+          <p class="text-xs font-mono text-emerald-400 uppercase tracking-wider">Get in Touch</p>
+          <h2 class="text-3xl font-bold text-white">Let's build something exceptional.</h2>
+          <p class="text-sm text-zinc-400">Have an exciting project or job opening? Send me a message!</p>
+          <p class="text-xs font-mono text-emerald-400 font-bold" id="contactEmailDisplay">hello@shahzaib.dev</p>
+        </div>
+        <form onsubmit="handleContact(event)" class="space-y-4">
+          <input type="text" required placeholder="Your Name" class="w-full px-4 py-3 rounded-2xl bg-slate-900 border border-white/10 text-sm text-white focus:outline-none focus:border-emerald-500" />
+          <input type="email" required placeholder="you@example.com" class="w-full px-4 py-3 rounded-2xl bg-slate-900 border border-white/10 text-sm text-white focus:outline-none focus:border-emerald-500" />
+          <textarea rows="3" required placeholder="Your Message..." class="w-full px-4 py-3 rounded-2xl bg-slate-900 border border-white/10 text-sm text-white focus:outline-none focus:border-emerald-500"></textarea>
+          <button type="submit" class="w-full py-3 rounded-2xl bg-emerald-500 text-zinc-950 font-bold text-sm hover:bg-emerald-400 transition">Send Message</button>
+        </form>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="border-t border-white/5 py-8 text-center text-xs font-mono text-zinc-500">
+    <p>© <span id="year">2026</span> <span id="footerName">Shahzaib</span>. All rights reserved.</p>
+  </footer>
+
+  <!-- Toast -->
+  <div id="toast" class="fixed bottom-5 right-5 z-50 hidden items-center gap-2 px-4 py-3 rounded-2xl bg-slate-900 border border-emerald-500/30 text-xs font-mono text-white shadow-2xl">
+    <i data-lucide="check-circle-2" class="w-4 h-4 text-emerald-400"></i>
+    <span id="toastMsg">Updated!</span>
+  </div>
+
+  <!-- Customizer Modal -->
+  <div id="customizerModal" class="fixed inset-0 z-50 hidden items-center justify-center bg-black/80 backdrop-blur-md p-4">
+    <div class="bg-slate-950 border border-white/15 rounded-3xl max-w-md w-full p-6 space-y-4 shadow-2xl">
+      <div class="flex items-center justify-between">
+        <h3 class="font-bold text-white flex items-center gap-2">
+          <i data-lucide="sparkles" class="w-4 h-4 text-emerald-400"></i> Customize Portfolio Details
+        </h3>
+        <button onclick="closeCustomizer()" class="text-zinc-400 hover:text-white"><i data-lucide="x" class="w-4 h-4"></i></button>
+      </div>
+      <div class="space-y-3 text-xs">
+        <div><label class="text-zinc-400 block mb-1">Your Name</label><input id="inputName" type="text" class="w-full px-3.5 py-2.5 rounded-xl bg-slate-900 border border-white/10 text-white" /></div>
+        <div><label class="text-zinc-400 block mb-1">Headline</label><input id="inputHeadline" type="text" class="w-full px-3.5 py-2.5 rounded-xl bg-slate-900 border border-white/10 text-white" /></div>
+        <div><label class="text-zinc-400 block mb-1">Bio</label><textarea id="inputBio" rows="2" class="w-full px-3.5 py-2.5 rounded-xl bg-slate-900 border border-white/10 text-white"></textarea></div>
+        <div class="grid grid-cols-2 gap-2">
+          <div><label class="text-zinc-400 block mb-1">Email</label><input id="inputEmail" type="email" class="w-full px-3.5 py-2.5 rounded-xl bg-slate-900 border border-white/10 text-white" /></div>
+          <div><label class="text-zinc-400 block mb-1">Location</label><input id="inputLocation" type="text" class="w-full px-3.5 py-2.5 rounded-xl bg-slate-900 border border-white/10 text-white" /></div>
+        </div>
+      </div>
+      <div class="flex justify-end gap-2 pt-2">
+        <button onclick="closeCustomizer()" class="px-4 py-2 rounded-xl text-xs text-zinc-400 hover:text-white">Cancel</button>
+        <button onclick="saveCustomizer()" class="px-4 py-2 rounded-xl text-xs font-bold bg-emerald-500 text-zinc-950 hover:bg-emerald-400">Save Changes</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    lucide.createIcons();
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    // Three.js 3D Animation
+    const container = document.getElementById('canvas-container');
+    const scene = new THREE.Scene();
+    const camera = new THREE.PerspectiveCamera(75, container.clientWidth / container.clientHeight, 0.1, 1000);
+    const renderer = new THREE.WebGLRenderer({ alpha: true, antialias: true });
+    renderer.setSize(container.clientWidth, container.clientHeight);
+    container.appendChild(renderer.domElement);
+
+    const geometry = new THREE.TorusKnotGeometry(10, 3, 100, 16);
+    const material = new THREE.MeshStandardMaterial({ color: 0x10b981, roughness: 0.2, metalness: 0.8 });
+    const torusKnot = new THREE.Mesh(geometry, material);
+    scene.add(torusKnot);
+
+    const light = new THREE.PointLight(0x38bdf8, 2, 50);
+    light.position.set(10, 10, 10);
+    scene.add(light);
+    scene.add(new THREE.AmbientLight(0xffffff, 0.5));
+    camera.position.z = 30;
+
+    function animate3D() {
+      requestAnimationFrame(animate3D);
+      torusKnot.rotation.x += 0.005;
+      torusKnot.rotation.y += 0.008;
+      renderer.render(scene, camera);
+    }
+    animate3D();
+
+    function updateClock() {
+      document.getElementById('liveClock').textContent = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+    }
+    updateClock();
+    setInterval(updateClock, 10000);
+
+    function showToast(msg) {
+      const toast = document.getElementById('toast');
+      document.getElementById('toastMsg').textContent = msg;
+      toast.classList.remove('hidden');
+      toast.classList.add('flex');
+      setTimeout(() => { toast.classList.add('hidden'); toast.classList.remove('flex'); }, 2600);
+    }
+
+    function handleContact(e) {
+      e.preventDefault();
+      e.target.reset();
+      showToast('Message sent successfully!');
+    }
+
+    const defaultData = {
+      name: 'Shahzaib',
+      headline: 'I build high-end 3D & Web experiences.',
+      bio: 'Full-stack developer & creative technologist crafting immersive digital products with cutting-edge web technologies and fluid animations.',
+      email: 'hello@shahzaib.dev',
+      location: 'Islamabad, Pakistan'
+    };
+
+    function applyData(data) {
+      document.getElementById('heroName').textContent = data.name;
+      document.getElementById('footerName').textContent = data.name;
+      document.getElementById('navName').textContent = data.name.toLowerCase().replace(/\s+/g, '') + '.dev';
+      document.getElementById('heroHeadline').textContent = data.headline;
+      document.getElementById('heroBio').textContent = data.bio;
+      document.getElementById('contactEmailDisplay').textContent = data.email;
+      document.getElementById('heroLocation').textContent = data.location;
+    }
+
+    const saved = JSON.parse(localStorage.getItem('portfolio_data') || 'null') || defaultData;
+    applyData(saved);
+
+    function openCustomizer() {
+      const current = JSON.parse(localStorage.getItem('portfolio_data') || 'null') || defaultData;
+      document.getElementById('inputName').value = current.name;
+      document.getElementById('inputHeadline').value = current.headline;
+      document.getElementById('inputBio').value = current.bio;
+      document.getElementById('inputEmail').value = current.email;
+      document.getElementById('inputLocation').value = current.location;
+      document.getElementById('customizerModal').classList.remove('hidden');
+      document.getElementById('customizerModal').classList.add('flex');
+    }
+
+    function closeCustomizer() {
+      document.getElementById('customizerModal').classList.add('hidden');
+      document.getElementById('customizerModal').classList.remove('flex');
+    }
+
+    function saveCustomizer() {
+      const updated = {
+        name: document.getElementById('inputName').value || defaultData.name,
+        headline: document.getElementById('inputHeadline').value || defaultData.headline,
+        bio: document.getElementById('inputBio').value || defaultData.bio,
+        email: document.getElementById('inputEmail').value || defaultData.email,
+        location: document.getElementById('inputLocation').value || defaultData.location,
+      };
+      localStorage.setItem('portfolio_data', JSON.stringify(updated));
+      applyData(updated);
+      closeCustomizer();
+      showToast('Portfolio updated successfully!');
+    }
+  </script>
+</body>
+</html>
