@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="en" class="dark scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Shahzaib — Full-Stack Developer & Product Designer</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Inter', 'sans-serif'],
+            mono: ['JetBrains Mono', 'monospace'],
+          },
+          colors: {
+            background: '#09090b',
+            surface: '#111113',
+            surfaceHover: '#18181b',
+            border: '#27272a',
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    body {
+      background-color: #09090b;
+      color: #fafafa;
+      background-image: radial-gradient(rgba(255, 255, 255, 0.06) 1px, transparent 1px);
+      background-size: 24px 24px;
+    }
+    .bento-card {
+      background: linear-gradient(180deg, rgba(24, 24, 27, 0.7) 0%, rgba(15, 15, 18, 0.85) 100%);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      backdrop-filter: blur(12px);
+      transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .bento-card:hover {
+      border-color: rgba(255, 255, 255, 0.18);
+      transform: translateY(-2px);
+      box-shadow: 0 12px 30px -10px rgba(0, 0, 0, 0.7);
+    }
+    .glass-nav {
+      background: rgba(15, 15, 18, 0.75);
+      backdrop-filter: blur(16px);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+    }
+  </style>
+</head>
+<body class="antialiased selection:bg-emerald-500/30 selection:text-emerald-200">
+
+  <!-- Floating Glass Navbar -->
+  <header class="fixed top-4 inset-x-0 z-40 flex justify-center px-4">
+    <nav class="glass-nav rounded-full px-4 py-2 flex items-center gap-4 sm:gap-6 shadow-2xl">
+      <a href="#" class="font-mono text-sm font-medium text-white flex items-center gap-2">
+        <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+        <span id="navName">shahzaib.dev</span>
+      </a>
+      <div class="hidden sm:flex items-center gap-5 text-xs font-medium text-zinc-400">
+        <a href="#about" class="hover:text-white transition-colors">About</a>
+        <a href="#projects" class="hover:text-white transition-colors">Projects</a>
+        <a href="#experience" class="hover:text-white transition-colors">Experience</a>
+        <a href="#contact" class="hover:text-white transition-colors">Contact</a>
+      </div>
+      <button onclick="openCustomizer()" class="text-xs font-medium bg-white/10 hover:bg-white/15 text-white px-3 py-1.5 rounded-full border border-white/10 transition flex items-center gap-1.5">
+        <i data-lucide="sliders-horizontal" class="w-3.5 h-3.5"></i>
+        <span>Customize</span>
+      </button>
+    </nav>
+  </header>
+
+  <main class="max-w-5xl mx-auto px-4 sm:px-6 pt-28 pb-20 space-y-20">
+
+    <!-- Hero Section -->
+    <section class="space-y-6 pt-4">
+      <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 text-xs font-mono">
+        <span class="relative flex h-2 w-2">
+          <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+          <span class="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
+        </span>
+        <span id="heroStatus">Available for freelance & full-time roles</span>
+      </div>
+
+      <h1 class="text-4xl sm:text-6xl font-bold tracking-tight text-white leading-[1.1]">
+        Hi, I'm <span id="heroName" class="text-transparent bg-clip-text bg-gradient-to-r from-white via-zinc-200 to-zinc-500">Shahzaib</span>.<br />
+        <span id="heroHeadline" class="text-zinc-400 font-normal">I craft fast, minimal web experiences.</span>
+      </h1>
+
+      <p id="heroBio" class="max-w-2xl text-zinc-400 text-base sm:text-lg leading-relaxed">
+        Full-stack developer & UI engineer focused on building clean, scalable web applications with modern architecture, smooth micro-interactions, and obsessive attention to detail.
+      </p>
+
+      <div class="flex flex-wrap items-center gap-3 pt-2">
+        <a href="#projects" class="px-5 py-2.5 rounded-xl bg-white text-zinc-950 font-medium text-sm hover:bg-zinc-200 transition flex items-center gap-2">
+          <span>View Selected Work</span>
+          <i data-lucide="arrow-down-right" class="w-4 h-4"></i>
+        </a>
+        <button onclick="copyEmail()" class="px-4 py-2.5 rounded-xl bento-card text-zinc-300 hover:text-white font-mono text-xs flex items-center gap-2">
+          <i data-lucide="copy" class="w-3.5 h-3.5 text-zinc-400"></i>
+          <span id="heroEmail">hello@shahzaib.dev</span>
+        </button>
+        <div class="flex items-center gap-2 ml-1">
+          <a id="linkGithub" href="https://github.com/Shahzaibsz99" target="_blank" aria-label="GitHub" class="p-2.5 rounded-xl bento-card text-zinc-400 hover:text-white">
+            <i data-lucide="github" class="w-4 h-4"></i>
+          </a>
+          <a id="linkLinkedin" href="https://linkedin.com" target="_blank" aria-label="LinkedIn" class="p-2.5 rounded-xl bento-card text-zinc-400 hover:text-white">
+            <i data-lucide="linkedin" class="w-4 h-4"></i>
+          </a>
+          <a id="linkTwitter" href="https://x.com" target="_blank" aria-label="X / Twitter" class="p-2.5 rounded-xl bento-card text-zinc-400 hover:text-white">
+            <i data-lucide="twitter" class="w-4 h-4"></i>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- Bento Grid About & Stack -->
+    <section id="about" class="grid grid-cols-1 md:grid-cols-3 gap-4">
+      <!-- Location & Time Card -->
+      <div class="bento-card rounded-2xl p-6 flex flex-col justify-between">
+        <div class="flex items-center justify-between text-zinc-400 text-xs font-mono">
+          <span class="flex items-center gap-1.5"><i data-lucide="map-pin" class="w-3.5 h-3.5 text-emerald-400"></i> BASE</span>
+          <span id="liveClock">PKT --:--</span>
+        </div>
+        <div class="mt-8">
+          <p id="heroLocation" class="text-xl font-semibold text-white">Islamabad, Pakistan</p>
+          <p class="text-xs text-zinc-500 mt-1">Working globally across timezones</p>
+        </div>
+      </div>
+
+      <!-- Core Stack Card -->
+      <div class="bento-card rounded-2xl p-6 md:col-span-2 flex flex-col justify-between">
+        <div class="flex items-center justify-between text-zinc-400 text-xs font-mono mb-4">
+          <span class="flex items-center gap-1.5"><i data-lucide="layers" class="w-3.5 h-3.5 text-sky-400"></i> TECH STACK</span>
+          <span>2026</span>
+        </div>
+        <div class="flex flex-wrap gap-2">
+          <span class="px-3 py-1.5 rounded-lg bg-white/5 border border-white/10 text-xs font-mono text-zinc-200">Next.js / React</span>
+          <span class="px-3 py-1.5 rounded-lg bg-white/5 border border-white/10 text-xs font-mono text-zinc-200">TypeScript</span>
+          <span class="px-3 py-1.5 rounded-lg bg-white/5 border border-white/10 text-xs font-mono text-zinc-200">Tailwind CSS</span>
+          <span class="px-3 py-1.5 rounded-lg bg-white/5 border border-white/10 text-xs font-mono text-zinc-200">Node.js</span>
+          <span class="px-3 py-1.5 rounded-lg bg-white/5 border border-white/10 text-xs font-mono text-zinc-200">PostgreSQL</span>
+          <span class="px-3 py-1.5 rounded-lg bg-white/5 border border-white/10 text-xs font-mono text-zinc-200">Prisma</span>
+          <span class="px-3 py-1.5 rounded-lg bg-white/5 border border-white/10 text-xs font-mono text-zinc-200">Docker</span>
+          <span class="px-3 py-1.5 rounded-lg bg-white/5 border border-white/10 text-xs font-mono text-zinc-200">Figma</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- Selected Projects -->
+    <section id="projects" class="space-y-6">
+      <div class="flex flex-col sm:flex-row sm:items-end justify-between gap-4">
+        <div>
+          <p class="text-xs font-mono text-emerald-400 uppercase tracking-wider">Portfolio</p>
+          <h2 class="text-2xl sm:text-3xl font-bold text-white mt-1">Selected Work</h2>
+        </div>
+        <div class="flex items-center gap-1.5 bg-zinc-900/90 p-1 rounded-xl border border-white/10 w-fit">
+          <button onclick="filterProjects('all')" data-filter="all" class="filter-btn active px-3 py-1.5 rounded-lg text-xs font-medium bg-white text-zinc-950 transition">All</button>
+          <button onclick="filterProjects('web')" data-filter="web" class="filter-btn px-3 py-1.5 rounded-lg text-xs font-medium text-zinc-400 hover:text-white transition">Web Apps</button>
+          <button onclick="filterProjects('ai')" data-filter="ai" class="filter-btn px-3 py-1.5 rounded-lg text-xs font-medium text-zinc-400 hover:text-white transition">AI / Tools</button>
+        </div>
+      </div>
+
+      <div id="projectsGrid" class="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <!-- Project 1 -->
+        <article data-category="ai" class="project-card bento-card rounded-2xl p-6 flex flex-col justify-between group">
+          <div>
+            <div class="flex items-center justify-between">
+              <span class="text-xs font-mono text-emerald-400 bg-emerald-500/10 px-2.5 py-1 rounded-md border border-emerald-500/20">AI SaaS</span>
+              <div class="flex items-center gap-2 text-zinc-400">
+                <a href="#" class="hover:text-white transition"><i data-lucide="github" class="w-4 h-4"></i></a>
+                <a href="#" class="hover:text-white transition"><i data-lucide="arrow-up-right" class="w-4 h-4"></i></a>
+              </div>
+            </div>
+            <h3 class="text-lg font-semibold text-white mt-4 group-hover:text-emerald-300 transition-colors">PulseNote AI</h3>
+            <p class="text-sm text-zinc-400 mt-2 leading-relaxed">
+              Minimalist markdown workspace with real-time semantic search, instant meeting transcription, and keyboard-first navigation.
+            </p>
+          </div>
+          <div class="flex flex-wrap gap-2 mt-6 pt-4 border-t border-white/5 text-[11px] font-mono text-zinc-400">
+            <span>Next.js</span><span>•</span><span>TypeScript</span><span>•</span><span>OpenAI</span>
+          </div>
+        </article>
+
+        <!-- Project 2 -->
+        <article data-category="web" class="project-card bento-card rounded-2xl p-6 flex flex-col justify-between group">
+          <div>
+            <div class="flex items-center justify-between">
+              <span class="text-xs font-mono text-sky-400 bg-sky-500/10 px-2.5 py-1 rounded-md border border-sky-500/20">Fintech</span>
+              <div class="flex items-center gap-2 text-zinc-400">
+                <a href="#" class="hover:text-white transition"><i data-lucide="github" class="w-4 h-4"></i></a>
+                <a href="#" class="hover:text-white transition"><i data-lucide="arrow-up-right" class="w-4 h-4"></i></a>
+              </div>
+            </div>
+            <h3 class="text-lg font-semibold text-white mt-4 group-hover:text-sky-300 transition-colors">LedgerFlow Dashboard</h3>
+            <p class="text-sm text-zinc-400 mt-2 leading-relaxed">
+              Real-time cashflow analytics, automated invoice reconciliation, and multi-currency expense tracking for remote agencies.
+            </p>
+          </div>
+          <div class="flex flex-wrap gap-2 mt-6 pt-4 border-t border-white/5 text-[11px] font-mono text-zinc-400">
+            <span>React</span><span>•</span><span>Tailwind</span><span>•</span><span>PostgreSQL</span>
+          </div>
+        </article>
+
+        <!-- Project 3 -->
+        <article data-category="web" class="project-card bento-card rounded-2xl p-6 flex flex-col justify-between group">
+          <div>
+            <div class="flex items-center justify-between">
+              <span class="text-xs font-mono text-purple-400 bg-purple-500/10 px-2.5 py-1 rounded-md border border-purple-500/20">Design System</span>
+              <div class="flex items-center gap-2 text-zinc-400">
+                <a href="#" class="hover:text-white transition"><i data-lucide="github" class="w-4 h-4"></i></a>
