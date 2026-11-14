@@ -1,344 +1,188 @@
 <!DOCTYPE html>
-<html lang="en" class="dark scroll-smooth">
+<html lang="en" class="scroll-smooth">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Shahzaib — Software Engineer & Full-Stack Architect</title>
+  <title>Shahzaib — Software Engineer & Designer</title>
   <script src="https://cdn.tailwindcss.com"></script>
-  <script src="https://unpkg.com/lucide@latest"></script>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
   <script>
     tailwind.config = {
       darkMode: 'class',
       theme: {
         extend: {
           fontFamily: {
-            sans: ['Inter', 'sans-serif'],
+            sans: ['Inter', '-apple-system', 'BlinkMacSystemFont', 'sans-serif'],
+            serif: ['Instrument Serif', 'Georgia', 'serif'],
             mono: ['JetBrains Mono', 'monospace'],
           }
         }
       }
     }
   </script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400&display=swap" rel="stylesheet">
   <style>
     body {
-      background-color: #09090b;
-      color: #fafafa;
-      font-family: 'Inter', sans-serif;
-      overflow-x: hidden;
+      transition: background-color 0.3s ease, color 0.3s ease;
     }
-    /* Subtle Professional Grid */
-    .bg-grid {
-      background-size: 32px 32px;
-      background-image: 
-        linear-gradient(to right, rgba(255, 255, 255, 0.02) 1px, transparent 1px),
-        linear-gradient(to bottom, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
+    .project-row {
+      transition: padding-left 0.25s cubic-bezier(0.16, 1, 0.3, 1), background-color 0.25s ease;
     }
-    .professional-card {
-      background: #121215;
-      border: 1px solid rgba(255, 255, 255, 0.08);
-      transition: border-color 0.2s ease, transform 0.2s ease;
-    }
-    .professional-card:hover {
-      border-color: rgba(255, 255, 255, 0.2);
-    }
-    .glass-nav {
-      background: rgba(18, 18, 21, 0.85);
-      backdrop-filter: blur(12px);
-      border: 1px solid rgba(255, 255, 255, 0.1);
+    .project-row:hover {
+      padding-left: 1rem;
     }
   </style>
 </head>
-<body class="antialiased bg-grid selection:bg-white/20 selection:text-white">
+<body class="bg-[#FAFAFA] text-[#111111] dark:bg-[#0A0A0A] dark:text-[#EDEDED] font-sans antialiased selection:bg-black selection:text-white dark:selection:bg-white dark:selection:text-black">
 
-  <!-- Professional Header / Navbar -->
-  <header class="fixed top-4 inset-x-0 z-50 flex justify-center px-4">
-    <nav class="glass-nav rounded-full px-5 py-2.5 flex items-center gap-6 shadow-xl">
-      <a href="#" class="font-mono text-xs font-medium text-white flex items-center gap-2">
-        <span class="w-2 h-2 rounded-full bg-emerald-500"></span>
-        <span id="navName">shahzaib.dev</span>
-      </a>
-      <div class="hidden sm:flex items-center gap-6 text-xs font-medium text-zinc-400">
-        <a href="#about" class="hover:text-white transition">About</a>
-        <a href="#projects" class="hover:text-white transition">Projects</a>
-        <a href="#experience" class="hover:text-white transition">Experience</a>
-        <a href="#contact" class="hover:text-white transition">Contact</a>
-      </div>
-      <button onclick="openCustomizer()" class="text-xs font-medium bg-white/10 hover:bg-white/15 text-white px-3.5 py-1.5 rounded-full border border-white/10 transition flex items-center gap-1.5">
-        <i data-lucide="sliders-horizontal" class="w-3.5 h-3.5"></i>
-        <span>Customize</span>
-      </button>
-    </nav>
-  </header>
+  <!-- Top Minimal Navigation -->
+  <header class="sticky top-0 z-40 bg-[#FAFAFA]/85 dark:bg-[#0A0A0A]/85 backdrop-blur-md border-b border-black/[0.06] dark:border-white/[0.06]">
+    <div class="max-w-5xl mx-auto px-6 h-16 flex items-center justify-between text-xs font-mono tracking-tight">
+      <a href="#" class="font-medium uppercase tracking-widest">SHAHZAIB®</a>
+      
+      <nav class="hidden sm:flex items-center gap-8 text-neutral-500 dark:text-neutral-400">
+        <a href="#work" class="hover:text-black dark:hover:text-white transition">WORK</a>
+        <a href="#about" class="hover:text-black dark:hover:text-white transition">ABOUT</a>
+        <a href="#experience" class="hover:text-black dark:hover:text-white transition">EXPERIENCE</a>
+        <a href="#contact" class="hover:text-black dark:hover:text-white transition">CONTACT</a>
+      </nav>
 
-  <main class="max-w-4xl mx-auto px-6 pt-32 pb-24 space-y-24">
-
-    <!-- Hero Section -->
-    <section class="space-y-6 pt-4">
-      <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/5 border border-white/10 text-zinc-300 text-xs font-mono">
-        <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
-        <span id="heroStatus">Software Engineer • Open for opportunities</span>
-      </div>
-
-      <h1 class="text-4xl sm:text-5xl font-bold tracking-tight text-white leading-[1.15]">
-        Hi, I'm <span id="heroName" class="text-white underline decoration-emerald-500/50 underline-offset-8">Shahzaib</span>.<br />
-        <span id="heroHeadline" class="text-zinc-400 font-normal text-2xl sm:text-3xl mt-3 block">I engineer robust, scalable backend systems & web apps.</span>
-      </h1>
-
-      <p id="heroBio" class="text-zinc-400 text-base leading-relaxed max-w-2xl">
-        Full-stack software engineer focused on building high-performance web architecture, clean APIs, and maintainable enterprise software solutions.
-      </p>
-
-      <div class="flex flex-wrap items-center gap-3 pt-2">
-        <a href="#projects" class="px-5 py-2.5 rounded-xl bg-white text-zinc-950 font-medium text-sm hover:bg-zinc-200 transition flex items-center gap-2">
-          <span>View Projects</span>
-          <i data-lucide="arrow-down-right" class="w-4 h-4"></i>
-        </a>
-        <button onclick="copyEmail()" class="px-4 py-2.5 rounded-xl professional-card text-zinc-300 hover:text-white font-mono text-xs flex items-center gap-2">
-          <i data-lucide="copy" class="w-3.5 h-3.5 text-zinc-400"></i>
-          <span id="heroEmail">hello@shahzaib.dev</span>
+      <div class="flex items-center gap-4">
+        <span id="clock" class="hidden md:inline text-neutral-400">ISB — 00:00</span>
+        <button id="themeToggle" aria-label="Toggle Theme" class="px-2.5 py-1 rounded border border-black/15 dark:border-white/15 hover:bg-black hover:text-white dark:hover:bg-white dark:hover:text-black transition">
+          DARK
         </button>
-        <div class="flex items-center gap-2">
-          <a id="linkGithub" href="https://github.com/Shahzaibsz99" target="_blank" class="p-2.5 rounded-xl professional-card text-zinc-400 hover:text-white"><i data-lucide="github" class="w-4 h-4"></i></a>
-          <a id="linkLinkedin" href="https://linkedin.com" target="_blank" class="p-2.5 rounded-xl professional-card text-zinc-400 hover:text-white"><i data-lucide="linkedin" class="w-4 h-4"></i></a>
-          <a id="linkTwitter" href="https://x.com" target="_blank" class="p-2.5 rounded-xl professional-card text-zinc-400 hover:text-white"><i data-lucide="twitter" class="w-4 h-4"></i></a>
-        </div>
-      </div>
-    </section>
-
-    <!-- Professional Profile & Tech Stack -->
-    <section id="about" class="grid grid-cols-1 md:grid-cols-3 gap-4">
-      <div class="professional-card rounded-2xl p-6 flex flex-col justify-between">
-        <div class="flex items-center justify-between text-zinc-500 text-xs font-mono">
-          <span>LOCATION</span>
-          <span id="liveClock" class="text-zinc-400">--:--</span>
-        </div>
-        <div class="mt-8">
-          <p id="heroLocation" class="text-lg font-semibold text-white">Islamabad, Pakistan</p>
-          <p class="text-xs text-zinc-500 mt-0.5">Remote / Global</p>
-        </div>
-      </div>
-
-      <div class="professional-card rounded-2xl p-6 md:col-span-2 flex flex-col justify-between">
-        <div class="flex items-center justify-between text-zinc-500 text-xs font-mono mb-4">
-          <span>EXPERTISE & STACK</span>
-          <span>Production Grade</span>
-        </div>
-        <div class="flex flex-wrap gap-2">
-          <span class="px-3 py-1 rounded-lg bg-white/5 border border-white/10 text-xs font-mono text-zinc-300">TypeScript</span>
-          <span class="px-3 py-1 rounded-lg bg-white/5 border border-white/10 text-xs font-mono text-zinc-300">Node.js</span>
-          <span class="px-3 py-1 rounded-lg bg-white/5 border border-white/10 text-xs font-mono text-zinc-300">React / Next.js</span>
-          <span class="px-3 py-1 rounded-lg bg-white/5 border border-white/10 text-xs font-mono text-zinc-300">PostgreSQL</span>
-          <span class="px-3 py-1 rounded-lg bg-white/5 border border-white/10 text-xs font-mono text-zinc-300">Docker</span>
-          <span class="px-3 py-1 rounded-lg bg-white/5 border border-white/10 text-xs font-mono text-zinc-300">REST / GraphQL</span>
-        </div>
-      </div>
-    </section>
-
-    <!-- Projects Section -->
-    <section id="projects" class="space-y-6">
-      <div class="flex items-center justify-between border-b border-white/10 pb-4">
-        <div>
-          <p class="text-xs font-mono text-zinc-500 uppercase">Portfolio</p>
-          <h2 class="text-2xl font-bold text-white mt-0.5">Featured Projects</h2>
-        </div>
-      </div>
-
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-        <div class="professional-card rounded-2xl p-6 flex flex-col justify-between">
-          <div>
-            <span class="text-xs font-mono text-emerald-400">SaaS Platform</span>
-            <h3 class="text-lg font-semibold text-white mt-2">Enterprise Analytics Engine</h3>
-            <p class="text-sm text-zinc-400 mt-2 leading-relaxed">
-              High-throughput data processing pipeline and reporting dashboard built for enterprise operations.
-            </p>
-          </div>
-          <div class="flex gap-2 mt-6 pt-4 border-t border-white/5 text-xs font-mono text-zinc-500">
-            <span>TypeScript</span><span>•</span><span>Node.js</span><span>•</span><span>PostgreSQL</span>
-          </div>
-        </div>
-
-        <div class="professional-card rounded-2xl p-6 flex flex-col justify-between">
-          <div>
-            <span class="text-xs font-mono text-sky-400">Cloud Tooling</span>
-            <h3 class="text-lg font-semibold text-white mt-2">Microservices Orchestrator</h3>
-            <p class="text-sm text-zinc-400 mt-2 leading-relaxed">
-              Automated container deployment and health monitoring service with zero-downtime routing.
-            </p>
-          </div>
-          <div class="flex gap-2 mt-6 pt-4 border-t border-white/5 text-xs font-mono text-zinc-500">
-            <span>Docker</span><span>•</span><span>Go</span><span>•</span><span>AWS</span>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- Experience Section -->
-    <section id="experience" class="space-y-6">
-      <div class="border-b border-white/10 pb-4">
-        <p class="text-xs font-mono text-zinc-500 uppercase">Career</p>
-        <h2 class="text-2xl font-bold text-white mt-0.5">Experience</h2>
-      </div>
-
-      <div class="professional-card rounded-2xl divide-y divide-white/5">
-        <div class="p-6 flex flex-col sm:flex-row sm:items-center justify-between gap-2">
-          <div>
-            <h3 class="font-medium text-white">Software Engineer</h3>
-            <p class="text-sm text-zinc-400">Full-Stack Development • Remote</p>
-          </div>
-          <span class="text-xs font-mono text-zinc-500">2024 — Present</span>
-        </div>
-        <div class="p-6 flex flex-col sm:flex-row sm:items-center justify-between gap-2">
-          <div>
-            <h3 class="font-medium text-white">Junior Developer</h3>
-            <p class="text-sm text-zinc-400">Web Systems & API Design</p>
-          </div>
-          <span class="text-xs font-mono text-zinc-500">2022 — 2024</span>
-        </div>
-      </div>
-    </section>
-
-    <!-- Contact Section -->
-    <section id="contact" class="professional-card rounded-2xl p-8">
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
-        <div class="space-y-3">
-          <p class="text-xs font-mono text-zinc-500 uppercase">Contact</p>
-          <h2 class="text-2xl font-bold text-white">Get in touch.</h2>
-          <p class="text-sm text-zinc-400 leading-relaxed">
-            Looking for a dedicated engineer for your team or project? Send a message and let's discuss.
-          </p>
-          <p class="text-xs font-mono text-zinc-300" id="contactEmailDisplay">hello@shahzaib.dev</p>
-        </div>
-
-        <form onsubmit="handleContact(event)" class="space-y-3">
-          <input type="text" required placeholder="Your Name" class="w-full px-4 py-2.5 rounded-xl bg-zinc-900 border border-white/10 text-sm text-white focus:outline-none focus:border-white/30" />
-          <input type="email" required placeholder="Your Email" class="w-full px-4 py-2.5 rounded-xl bg-zinc-900 border border-white/10 text-sm text-white focus:outline-none focus:border-white/30" />
-          <textarea rows="3" required placeholder="Message..." class="w-full px-4 py-2.5 rounded-xl bg-zinc-900 border border-white/10 text-sm text-white focus:outline-none focus:border-white/30"></textarea>
-          <button type="submit" class="w-full py-2.5 rounded-xl bg-white text-zinc-950 font-medium text-sm hover:bg-zinc-200 transition">
-            Send Message
-          </button>
-        </form>
-      </div>
-    </section>
-
-  </main>
-
-  <footer class="border-t border-white/5 py-8 text-center text-xs font-mono text-zinc-500">
-    <p>© <span id="year">2026</span> <span id="footerName">Shahzaib</span>. Professional Portfolio.</p>
-  </footer>
-
-  <!-- Toast -->
-  <div id="toast" class="fixed bottom-5 right-5 z-50 hidden items-center gap-2 px-4 py-2.5 rounded-xl bg-zinc-900 border border-white/15 text-xs font-mono text-white shadow-2xl">
-    <i data-lucide="check" class="w-4 h-4 text-emerald-400"></i>
-    <span id="toastMsg">Copied</span>
-  </div>
-
-  <!-- Customizer Modal -->
-  <div id="customizerModal" class="fixed inset-0 z-50 hidden items-center justify-center bg-black/80 backdrop-blur-sm p-4">
-    <div class="bg-zinc-950 border border-white/15 rounded-2xl max-w-md w-full p-6 space-y-4 shadow-2xl">
-      <div class="flex items-center justify-between border-b border-white/10 pb-3">
-        <h3 class="text-sm font-medium text-white">Customize Details</h3>
-        <button onclick="closeCustomizer()" class="text-zinc-400 hover:text-white"><i data-lucide="x" class="w-4 h-4"></i></button>
-      </div>
-      <div class="space-y-3 text-xs">
-        <div><label class="text-zinc-400 block mb-1">Name</label><input id="inputName" type="text" class="w-full px-3 py-2 rounded-lg bg-zinc-900 border border-white/10 text-white" /></div>
-        <div><label class="text-zinc-400 block mb-1">Headline</label><input id="inputHeadline" type="text" class="w-full px-3 py-2 rounded-lg bg-zinc-900 border border-white/10 text-white" /></div>
-        <div><label class="text-zinc-400 block mb-1">Bio</label><textarea id="inputBio" rows="2" class="w-full px-3 py-2 rounded-lg bg-zinc-900 border border-white/10 text-white"></textarea></div>
-        <div class="grid grid-cols-2 gap-2">
-          <div><label class="text-zinc-400 block mb-1">Email</label><input id="inputEmail" type="email" class="w-full px-3 py-2 rounded-lg bg-zinc-900 border border-white/10 text-white" /></div>
-          <div><label class="text-zinc-400 block mb-1">Location</label><input id="inputLocation" type="text" class="w-full px-3 py-2 rounded-lg bg-zinc-900 border border-white/10 text-white" /></div>
-        </div>
-      </div>
-      <div class="flex justify-end gap-2 pt-2">
-        <button onclick="closeCustomizer()" class="px-3.5 py-1.5 rounded-lg text-xs text-zinc-400 hover:text-white">Cancel</button>
-        <button onclick="saveCustomizer()" class="px-3.5 py-1.5 rounded-lg text-xs font-medium bg-white text-zinc-950 hover:bg-zinc-200">Save</button>
       </div>
     </div>
-  </div>
+  </header>
 
-  <script>
-    lucide.createIcons();
-    document.getElementById('year').textContent = new Date().getFullYear();
+  <main class="max-w-5xl mx-auto px-6">
 
-    function updateClock() {
-      document.getElementById('liveClock').textContent = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
-    }
-    updateClock();
-    setInterval(updateClock, 10000);
+    <!-- Editorial Hero -->
+    <section class="pt-20 pb-24 sm:pt-28 sm:pb-32 border-b border-black/[0.08] dark:border-white/[0.08]">
+      <div class="flex items-center gap-2 text-xs font-mono text-neutral-500 dark:text-neutral-400 mb-8">
+        <span class="w-2 h-2 rounded-full bg-emerald-500"></span>
+        <span>AVAILABLE FOR SELECT PROJECTS — 2026</span>
+      </div>
 
-    function showToast(msg) {
-      const toast = document.getElementById('toast');
-      document.getElementById('toastMsg').textContent = msg;
-      toast.classList.remove('hidden');
-      toast.classList.add('flex');
-      setTimeout(() => { toast.classList.add('hidden'); toast.classList.remove('flex'); }, 2500);
-    }
+      <h1 class="text-5xl sm:text-7xl md:text-8xl font-normal tracking-tight leading-[0.98]">
+        Full-Stack Engineer <br />
+        <span class="font-serif italic text-neutral-500 dark:text-neutral-400">&amp; Digital Product</span> Designer.
+      </h1>
 
-    function copyEmail() {
-      const email = document.getElementById('heroEmail').textContent;
-      navigator.clipboard.writeText(email);
-      showToast('Copied: ' + email);
-    }
+      <div class="mt-12 grid grid-cols-1 md:grid-cols-12 gap-8 items-end">
+        <p class="md:col-span-7 text-base sm:text-lg text-neutral-600 dark:text-neutral-400 leading-relaxed font-light">
+          I'm Shahzaib—a software engineer based in Islamabad building fast, resilient web applications and refined user interfaces with obsessive attention to typography, architecture, and motion.
+        </p>
+        <div class="md:col-span-5 flex md:justify-end gap-6 text-xs font-mono">
+          <a href="https://github.com/Shahzaibsz99" target="_blank" class="underline underline-offset-4 hover:opacity-60 transition">GITHUB ↗</a>
+          <a href="https://linkedin.com" target="_blank" class="underline underline-offset-4 hover:opacity-60 transition">LINKEDIN ↗</a>
+          <a href="mailto:hello@shahzaib.dev" class="underline underline-offset-4 hover:opacity-60 transition">EMAIL ↗</a>
+        </div>
+      </div>
+    </section>
 
-    function handleContact(e) {
-      e.preventDefault();
-      e.target.reset();
-      showToast('Message sent successfully');
-    }
+    <!-- Selected Work (Clean Interactive Index) -->
+    <section id="work" class="py-24 border-b border-black/[0.08] dark:border-white/[0.08]">
+      <div class="flex items-baseline justify-between mb-12">
+        <h2 class="text-xs font-mono uppercase tracking-widest text-neutral-500">01 / SELECTED WORK</h2>
+        <span class="text-xs font-mono text-neutral-400">(04)</span>
+      </div>
 
-    const defaultData = {
-      name: 'Shahzaib',
-      headline: 'I engineer robust, scalable backend systems & web apps.',
-      bio: 'Full-stack software engineer focused on building high-performance web architecture, clean APIs, and maintainable enterprise software solutions.',
-      email: 'hello@shahzaib.dev',
-      location: 'Islamabad, Pakistan'
-    };
+      <div class="divide-y divide-black/[0.08] dark:divide-white/[0.08] border-t border-b border-black/[0.08] dark:border-white/[0.08]">
+        
+        <!-- Row 1 -->
+        <a href="#" class="project-row py-8 flex flex-col sm:flex-row sm:items-center justify-between gap-4 group hover:bg-black/[0.02] dark:hover:bg-white/[0.02]">
+          <div class="space-y-1">
+            <div class="flex items-center gap-3">
+              <span class="text-xs font-mono text-neutral-400">01</span>
+              <h3 class="text-2xl sm:text-3xl font-normal tracking-tight group-hover:italic transition-all">PulseNote Workspace</h3>
+            </div>
+            <p class="text-sm text-neutral-500 dark:text-neutral-400 pl-7">Local-first markdown knowledge base with semantic AI search.</p>
+          </div>
+          <div class="flex items-center gap-6 pl-7 sm:pl-0 text-xs font-mono text-neutral-500">
+            <span>NEXT.JS / TYPESCRIPT</span>
+            <span class="text-base group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform">↗</span>
+          </div>
+        </a>
 
-    function applyData(data) {
-      document.getElementById('heroName').textContent = data.name;
-      document.getElementById('footerName').textContent = data.name;
-      document.getElementById('navName').textContent = data.name.toLowerCase().replace(/\s+/g, '') + '.dev';
-      document.getElementById('heroHeadline').textContent = data.headline;
-      document.getElementById('heroBio').textContent = data.bio;
-      document.getElementById('heroEmail').textContent = data.email;
-      document.getElementById('contactEmailDisplay').textContent = data.email;
-      document.getElementById('heroLocation').textContent = data.location;
-    }
+        <!-- Row 2 -->
+        <a href="#" class="project-row py-8 flex flex-col sm:flex-row sm:items-center justify-between gap-4 group hover:bg-black/[0.02] dark:hover:bg-white/[0.02]">
+          <div class="space-y-1">
+            <div class="flex items-center gap-3">
+              <span class="text-xs font-mono text-neutral-400">02</span>
+              <h3 class="text-2xl sm:text-3xl font-normal tracking-tight group-hover:italic transition-all">LedgerFlow Treasury</h3>
+            </div>
+            <p class="text-sm text-neutral-500 dark:text-neutral-400 pl-7">Automated multi-currency cashflow & reconciliation platform.</p>
+          </div>
+          <div class="flex items-center gap-6 pl-7 sm:pl-0 text-xs font-mono text-neutral-500">
+            <span>REACT / POSTGRESQL</span>
+            <span class="text-base group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform">↗</span>
+          </div>
+        </a>
 
-    const saved = JSON.parse(localStorage.getItem('portfolio_data') || 'null') || defaultData;
-    applyData(saved);
+        <!-- Row 3 -->
+        <a href="#" class="project-row py-8 flex flex-col sm:flex-row sm:items-center justify-between gap-4 group hover:bg-black/[0.02] dark:hover:bg-white/[0.02]">
+          <div class="space-y-1">
+            <div class="flex items-center gap-3">
+              <span class="text-xs font-mono text-neutral-400">03</span>
+              <h3 class="text-2xl sm:text-3xl font-normal tracking-tight group-hover:italic transition-all">Obsidian Design System</h3>
+            </div>
+            <p class="text-sm text-neutral-500 dark:text-neutral-400 pl-7">Zero-runtime accessible component primitives for modern web apps.</p>
+          </div>
+          <div class="flex items-center gap-6 pl-7 sm:pl-0 text-xs font-mono text-neutral-500">
+            <span>TAILWIND / ARIA</span>
+            <span class="text-base group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform">↗</span>
+          </div>
+        </a>
 
-    function openCustomizer() {
-      const current = JSON.parse(localStorage.getItem('portfolio_data') || 'null') || defaultData;
-      document.getElementById('inputName').value = current.name;
-      document.getElementById('inputHeadline').value = current.headline;
-      document.getElementById('inputBio').value = current.bio;
-      document.getElementById('inputEmail').value = current.email;
-      document.getElementById('inputLocation').value = current.location;
-      document.getElementById('customizerModal').classList.remove('hidden');
-      document.getElementById('customizerModal').classList.add('flex');
-    }
+        <!-- Row 4 -->
+        <a href="#" class="project-row py-8 flex flex-col sm:flex-row sm:items-center justify-between gap-4 group hover:bg-black/[0.02] dark:hover:bg-white/[0.02]">
+          <div class="space-y-1">
+            <div class="flex items-center gap-3">
+              <span class="text-xs font-mono text-neutral-400">04</span>
+              <h3 class="text-2xl sm:text-3xl font-normal tracking-tight group-hover:italic transition-all">Veloce Edge CLI</h3>
+            </div>
+            <p class="text-sm text-neutral-500 dark:text-neutral-400 pl-7">Zero-config container deployment pipeline for distributed teams.</p>
+          </div>
+          <div class="flex items-center gap-6 pl-7 sm:pl-0 text-xs font-mono text-neutral-500">
+            <span>NODE.JS / DOCKER</span>
+            <span class="text-base group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform">↗</span>
+          </div>
+        </a>
 
-    function closeCustomizer() {
-      document.getElementById('customizerModal').classList.add('hidden');
-      document.getElementById('customizerModal').classList.remove('flex');
-    }
+      </div>
+    </section>
 
-    function saveCustomizer() {
-      const updated = {
-        name: document.getElementById('inputName').value || defaultData.name,
-        headline: document.getElementById('inputHeadline').value || defaultData.headline,
-        bio: document.getElementById('inputBio').value || defaultData.bio,
-        email: document.getElementById('inputEmail').value || defaultData.email,
-        location: document.getElementById('inputLocation').value || defaultData.location,
-      };
-      localStorage.setItem('portfolio_data', JSON.stringify(updated));
-      applyData(updated);
-      closeCustomizer();
-      showToast('Profile updated');
-    }
-  </script>
-</body>
-</html>
+    <!-- About & Capabilities -->
+    <section id="about" class="py-24 border-b border-black/[0.08] dark:border-white/[0.08] grid grid-cols-1 md:grid-cols-12 gap-12">
+      <div class="md:col-span-4">
+        <h2 class="text-xs font-mono uppercase tracking-widest text-neutral-500">02 / APPROACH &amp; STACK</h2>
+      </div>
+      <div class="md:col-span-8 space-y-8">
+        <p class="text-xl sm:text-2xl font-light leading-relaxed">
+          I bridge the gap between clean visual design and scalable backend engineering—shipping products that are fast, maintainable, and intuitive to use.
+        </p>
+
+        <div class="grid grid-cols-2 sm:grid-cols-3 gap-6 pt-4 text-xs font-mono">
+          <div class="space-y-2">
+            <p class="text-neutral-400">FRONTEND</p>
+            <ul class="space-y-1.5">
+              <li>Next.js / React</li>
+              <li>TypeScript</li>
+              <li>Tailwind CSS</li>
+              <li>Motion / WebGL</li>
+            </ul>
+          </div>
+          <div class="space-y-2">
+            <p class="text-neutral-400">BACKEND</p>
+            <ul class="space-y-1.5">
+              <li>Node.js / Express</li>
+              <li>PostgreSQL / Prisma</li>
+              <li>REST &amp; GraphQL</li>
+              <li>Redis</li>
+            </ul>
+          </div>
+          <div class="space-y-2">
+            <p class="text-neutral-400">INFRASTRUCTURE</p
