@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Shahzaib — Computer Engineering | Bahria University Islamabad</title>
   <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
@@ -15,11 +16,20 @@
       color: #1d1d1f;
       overflow-x: hidden;
       -webkit-font-smoothing: antialiased;
+      margin: 0;
     }
-    .apple-nav {
-      background: rgba(255, 255, 255, 0.82);
+    /* Sticky Top Bar that stays on scroll */
+    .sticky-bar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      z-index: 100;
+      background: rgba(255, 255, 255, 0.85);
       backdrop-filter: saturate(180%) blur(20px);
       -webkit-backdrop-filter: saturate(180%) blur(20px);
+      border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+      transition: all 0.3s ease;
     }
     .showcase-stage { perspective: 1400px; }
     .device-left { transform: rotateY(22deg) rotateX(4deg) translateZ(-20px); transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1); }
@@ -44,38 +54,51 @@
       transform: scale(1.012);
       box-shadow: 0 20px 40px -15px rgba(0, 0, 0, 0.08);
     }
+    /* Background 3D Canvas fixed behind content */
+    #bg-3d-canvas {
+      position: fixed;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      z-index: -1;
+      pointer-events: none;
+      opacity: 0.18;
+    }
   </style>
 </head>
 <body class="selection:bg-[#0071e3] selection:text-white">
 
-  <!-- Header -->
-  <header class="apple-nav sticky top-0 z-50 border-b border-black/[0.06]">
-    <div class="max-w-5xl mx-auto px-6 h-11 flex items-center justify-between text-[12px] font-normal text-[#1d1d1f]/80">
-      <a href="#" class="font-semibold text-[#1d1d1f] tracking-tight flex items-center gap-1.5">
-        <svg class="w-4 h-4" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2L2 7l10 5 10-5-10-5zm0 7.5L4.5 6 12 2.5 19.5 6 12 9.5zm-10 4.5l10 5 10-5v2.5l-10 5-10-5V14zm0 4.5l10 5 10-5V21l-10 5-10-5v-2.5z"/></svg>
-        <span>Shahzaib</span>
+  <!-- 3D Background Bubbles/Particles Effect -->
+  <canvas id="bg-3d-canvas"></canvas>
+
+  <!-- Sticky Top Bar (Stays on scroll) -->
+  <header class="sticky-bar">
+    <div class="max-w-6xl mx-auto px-6 h-14 flex items-center justify-between text-[13px] font-normal text-[#1d1d1f]">
+      <a href="#" class="font-semibold tracking-tight flex items-center gap-2">
+        <span class="w-2.5 h-2.5 rounded-full bg-emerald-500"></span>
+        <span>Shahzaib — Bahria University Islamabad</span>
       </a>
 
-      <nav class="hidden md:flex items-center gap-7">
+      <nav class="hidden md:flex items-center gap-8 text-neutral-600">
         <a href="#overview" class="hover:text-black transition">Overview</a>
         <a href="#projects" class="hover:text-black transition">Projects</a>
         <a href="#architecture" class="hover:text-black transition">Architecture</a>
-        <a href="#education" class="hover:text-black transition">Academics &amp; Certs</a>
+        <a href="#education" class="hover:text-black transition">Certificates</a>
         <a href="#contact" class="hover:text-black transition">Contact</a>
       </nav>
 
       <div class="flex items-center gap-4">
-        <a href="https://github.com/Shahzaibsz99" target="_blank" class="hover:text-black transition">GitHub</a>
-        <a href="#contact" class="text-[#0071e3] font-medium hover:underline">Hire Me</a>
+        <span id="topClock" class="font-mono text-xs text-neutral-500">ISB 00:00</span>
+        <a href="#contact" class="px-4 py-1.5 rounded-full bg-[#0071e3] text-white font-medium text-xs hover:bg-[#0077ed] transition">Hire Me</a>
       </div>
     </div>
   </header>
 
-  <!-- Hero Section -->
-  <section id="overview" class="pt-16 sm:pt-24 pb-12 px-6 text-center max-w-5xl mx-auto">
+  <!-- Hero & Intro Section -->
+  <section id="overview" class="pt-28 sm:pt-36 pb-16 px-6 text-center max-w-5xl mx-auto">
     <div class="inline-flex items-center justify-center gap-2 mb-3">
       <span class="w-2 h-2 rounded-full bg-emerald-500"></span>
-      <span class="text-xs font-medium tracking-wide text-[#6e6e73] uppercase">Bahria University Islamabad • Computer Engineering</span>
+      <span class="text-xs font-medium tracking-wide text-[#6e6e73] uppercase">Computer Engineering Undergraduate</span>
     </div>
 
     <h1 class="text-5xl sm:text-7xl font-semibold tracking-[-0.03em] text-[#1d1d1f] leading-[1.05]">
@@ -291,7 +314,7 @@ endmodule</code></pre>
     </div>
   </section>
 
-  <!-- Academics & Computer Certificates Section -->
+  <!-- Academics & Computer Certificates Section (Targeted by scroll observer for particle shift) -->
   <section id="education" class="py-20 px-6 bg-[#f5f5f7] border-t border-black/[0.06]">
     <div class="max-w-5xl mx-auto space-y-16">
       
@@ -378,6 +401,7 @@ endmodule</code></pre>
   </section>
 
   <script>
+    // Live Top Bar Clock
     function updateClock() {
       const time = new Date().toLocaleTimeString('en-US', {
         timeZone: 'Asia/Karachi',
@@ -385,7 +409,9 @@ endmodule</code></pre>
         minute: '2-digit',
         hour12: false
       });
-      document.getElementById('deviceClock').textContent = time;
+      document.getElementById('topClock').textContent = `ISB ${time}`;
+      const deviceClock = document.getElementById('deviceClock');
+      if (deviceClock) deviceClock.textContent = time;
     }
     updateClock();
     setInterval(updateClock, 15000);
@@ -394,13 +420,51 @@ endmodule</code></pre>
       navigator.clipboard.writeText('hello@shahzaib.dev');
       const heroBtn = document.getElementById('heroCopyBtn');
       const footerBtn = document.getElementById('footerCopyBtn');
-      heroBtn.textContent = 'Email Copied ✓';
-      footerBtn.textContent = 'Copied to Clipboard ✓';
+      if (heroBtn) heroBtn.textContent = 'Email Copied ✓';
+      if (footerBtn) footerBtn.textContent = 'Copied to Clipboard ✓';
       setTimeout(() => {
-        heroBtn.textContent = 'Get in touch';
-        footerBtn.textContent = 'Copy Email — hello@shahzaib.dev';
+        if (heroBtn) heroBtn.textContent = 'Get in touch';
+        if (footerBtn) footerBtn.textContent = 'Copy Email — hello@shahzaib.dev';
       }, 2400);
     }
-  </script>
-</body>
-</html>
+
+    // Three.js 3D Background Particles that shift color/focus when user scrolls to Certificates
+    const canvas = document.getElementById('bg-3d-canvas');
+    const scene = new THREE.Scene();
+    const camera = new THREE.PerspectiveCamera(60, window.innerWidth / window.innerHeight, 0.1, 1000);
+    camera.position.z = 5;
+
+    const renderer = new THREE.WebGLRenderer({ canvas: canvas, alpha: true, antialias: true });
+    renderer.setSize(window.innerWidth, window.innerHeight);
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+
+    const particleCount = 800;
+    const geometry = new THREE.BufferGeometry();
+    const positions = new Float32Array(particleCount * 3);
+
+    for (let i = 0; i < particleCount * 3; i += 3) {
+      positions[i] = (Math.random() - 0.5) * 12;
+      positions[i + 1] = (Math.random() - 0.5) * 12;
+      positions[i + 2] = (Math.random() - 0.5) * 6;
+    }
+
+    geometry.setAttribute('position', new THREE.BufferAttribute(positions, 3));
+
+    // Dynamic material whose color shifts when user reaches certificates section
+    const particleMaterial = new THREE.PointsMaterial({
+      color: 0x0071e3,
+      size: 0.035,
+      transparent: true,
+      opacity: 0.6
+    });
+
+    const particleSystem = new THREE.Points(geometry, particleMaterial);
+    scene.add(particleSystem);
+
+    // Scroll Observer to shift bubble focus to certificates
+    let isAtCertificates = false;
+    const educationSection = document.getElementById('education');
+    
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersect
