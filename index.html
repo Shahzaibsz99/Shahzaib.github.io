@@ -1,155 +1,58 @@
 <!DOCTYPE html>
-<html lang="en" class="dark scroll-smooth">
+<html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Shahzaib — Computer Engineering &amp; Systems Architect</title>
-  <script src="https://cdn.tailwindcss.com"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
-  <script>
-    tailwind.config = {
-      darkMode: 'class',
-      theme: {
-        extend: {
-          fontFamily: {
-            sans: ['Inter', '-apple-system', 'BlinkMacSystemFont', 'sans-serif'],
-            serif: ['Instrument Serif', 'Georgia', 'serif'],
-            mono: ['JetBrains Mono', 'monospace'],
-          }
-        }
-      }
-    }
-  </script>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Shahzaib — Computer Engineering Portfolio</title>
   <style>
     body {
-      /* Rich Midnight Slate & Sapphire Atmospheric Backdrop instead of flat black */
       background-color: #090D16;
-      background-image: 
-        radial-gradient(circle at 18% 12%, rgba(56, 189, 248, 0.14) 0%, transparent 45%),
-        radial-gradient(circle at 82% 28%, rgba(16, 185, 129, 0.12) 0%, transparent 45%),
-        radial-gradient(circle at 50% 85%, rgba(99, 102, 241, 0.12) 0%, transparent 55%),
-        linear-gradient(180deg, #090D16 0%, #0D1322 50%, #090D16 100%);
-      background-attachment: fixed;
       color: #F1F5F9;
-      overflow-x: hidden;
-      perspective: 1200px;
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      margin: 0;
+      padding: 40px;
+      line-height: 1.6;
     }
-
-    /* Architectural Blueprint Grid Overlay */
-    .blueprint-grid {
-      position: fixed;
-      inset: 0;
-      background-size: 44px 44px;
-      background-image: 
-        linear-gradient(to right, rgba(148, 163, 184, 0.045) 1px, transparent 1px),
-        linear-gradient(to bottom, rgba(148, 163, 184, 0.045) 1px, transparent 1px);
-      mask-image: radial-gradient(ellipse 85% 75% at 50% 35%, #000 55%, transparent 100%);
-      z-index: -2;
-      pointer-events: none;
+    .container {
+      max-width: 800px;
+      margin: 0 auto;
+      background: rgba(22, 30, 49, 0.8);
+      border: 1px solid rgba(148, 163, 184, 0.2);
+      padding: 40px;
+      border-radius: 16px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.5);
     }
-
-    /* Full-screen 3D Background Canvas */
-    #bg-3d-canvas {
-      position: fixed;
-      inset: 0;
-      width: 100%;
-      height: 100%;
-      z-index: -1;
-      pointer-events: none;
+    h1 { color: #38bdf8; margin-top: 0; }
+    .badge {
+      display: inline-block;
+      background: rgba(52, 211, 153, 0.15);
+      color: #34d399;
+      padding: 4px 12px;
+      border-radius: 20px;
+      font-size: 12px;
+      font-family: monospace;
+      margin-bottom: 20px;
     }
-
-    .project-row {
-      transition: padding-left 0.25s cubic-bezier(0.16, 1, 0.3, 1), background-color 0.25s ease;
-    }
-    .project-row:hover {
-      padding-left: 1rem;
-    }
-
-    /* Elevated Frosted Sapphire Glass Cards */
-    .glass-3d-card {
-      background: linear-gradient(145deg, rgba(22, 30, 49, 0.72), rgba(13, 19, 34, 0.85));
-      backdrop-filter: blur(18px);
-      border: 1px solid rgba(148, 163, 184, 0.14);
-      box-shadow: 0 10px 30px -10px rgba(2, 6, 23, 0.7), inset 0 1px 0 rgba(255, 255, 255, 0.06);
-      transform-style: preserve-3d;
-      transition: transform 0.25s ease-out, border-color 0.3s ease, box-shadow 0.3s ease;
-    }
-    .glass-3d-card:hover {
-      border-color: rgba(56, 189, 248, 0.45);
-      box-shadow: 0 22px 45px -15px rgba(2, 6, 23, 0.85), 0 0 30px -5px rgba(56, 189, 248, 0.18);
-      transform: translateY(-4px);
-    }
+    ul { padding-left: 20px; }
+    li { margin-bottom: 10px; }
   </style>
 </head>
-<body class="font-sans antialiased selection:bg-sky-400 selection:text-slate-950">
+<body>
+  <div class="container">
+    <div class="badge">COMPUTER ENGINEERING UNDERGRADUATE</div>
+    <h1>Hi, I'm Shahzaib</h1>
+    <p>Welcome to my systems architecture and engineering portfolio based in Islamabad, Pakistan.</p>
+    
+    <h3>Core Tech Stack &amp; Focus:</h3>
+    <ul>
+      <li><strong>Hardware &amp; Digital Design:</strong> Verilog, FPGA Prototyping, Computer Architecture</li>
+      <li><strong>Firmware &amp; Embedded:</strong> C/C++, STM32, FreeRTOS, Microcontrollers</li>
+      <li><strong>Software Engineering:</strong> TypeScript, Next.js, Node.js, PostgreSQL</li>
+    </ul>
 
-  <!-- Architectural Grid + 3D Particle World -->
-  <div class="blueprint-grid"></div>
-  <canvas id="bg-3d-canvas"></canvas>
-
-  <!-- Minimal Top Bar -->
-  <header class="sticky top-0 z-50 bg-[#090D16]/75 backdrop-blur-xl border-b border-slate-400/[0.12]">
-    <div class="max-w-6xl mx-auto px-6 h-16 flex items-center justify-between text-xs font-mono tracking-tight">
-      <a href="#" class="font-medium uppercase tracking-widest flex items-center gap-2.5 text-white">
-        <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse shadow-[0_0_10px_#34d399]"></span>
-        <span>SHAHZAIB // B.S. CPE</span>
-      </a>
-      
-      <nav class="hidden md:flex items-center gap-8 text-slate-300">
-        <a href="#work" class="hover:text-sky-300 transition">01. SYSTEMS &amp; WORK</a>
-        <a href="#architecture" class="hover:text-sky-300 transition">02. HARDWARE &amp; STACK</a>
-        <a href="#education" class="hover:text-sky-300 transition">03. ACADEMICS &amp; LABS</a>
-        <a href="#contact" class="hover:text-sky-300 transition">04. CONTACT</a>
-      </nav>
-
-      <div class="flex items-center gap-4">
-        <span id="clock" class="hidden sm:inline text-slate-300">ISB — 00:00</span>
-        <span class="px-2.5 py-1 rounded-full bg-sky-400/10 border border-sky-400/30 text-sky-300 font-mono text-[10px]">3D ACTIVE</span>
-      </div>
-    </div>
-  </header>
-
-  <main class="max-w-6xl mx-auto px-6 relative z-10">
-
-    <!-- Hero Section -->
-    <section class="pt-20 pb-24 sm:pt-28 sm:pb-32 border-b border-slate-400/[0.12] grid grid-cols-1 lg:grid-cols-12 gap-10 items-center">
-      
-      <div class="lg:col-span-8 space-y-7">
-        <div class="inline-flex items-center gap-2.5 px-3.5 py-1.5 rounded-full border border-sky-400/25 text-[11px] font-mono text-sky-200 bg-sky-400/[0.08] backdrop-blur-md">
-          <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-ping"></span>
-          <span>COMPUTER ENGINEERING UNDERGRADUATE // EMBEDDED &amp; FULL-STACK</span>
-        </div>
-
-        <h1 class="text-5xl sm:text-7xl font-normal tracking-tight leading-[0.98] text-white">
-          Silicon Logic <br />
-          <span class="font-serif italic text-transparent bg-clip-text bg-gradient-to-r from-sky-300 via-emerald-200 to-indigo-300">&amp; Scalable Software</span> Architecture.
-        </h1>
-
-        <p class="text-base sm:text-lg text-slate-300 leading-relaxed font-light max-w-xl">
-          I'm <strong class="font-medium text-white">Shahzaib</strong>, a Computer Engineering student in Islamabad bridging low-level hardware systems (C/C++, Verilog, Microcontrollers, RTOS) with modern cloud and web engineering.
-        </p>
-
-        <div class="flex flex-wrap items-center gap-4 pt-2 text-xs font-mono">
-          <a href="#work" class="px-6 py-3.5 rounded-full bg-gradient-to-r from-sky-400 to-emerald-400 text-slate-950 font-bold hover:brightness-110 transition shadow-lg shadow-sky-500/25">
-            EXPLORE ENGINEERING WORK ↓
-          </a>
-          <a href="https://github.com/Shahzaibsz99" target="_blank" class="px-5 py-3.5 rounded-full glass-3d-card text-white hover:border-sky-400/50 transition">
-            GITHUB (@SHAHZAIBSZ99) ↗
-          </a>
-        </div>
-      </div>
-
-      <div class="lg:col-span-4">
-        <div class="glass-3d-card rounded-2xl p-6 space-y-4">
-          <div class="flex items-center justify-between text-xs font-mono text-slate-400">
-            <span>TELEMETRY</span>
-            <span class="text-emerald-400 flex items-center gap-1.5">
-              <span class="w-1.5 h-1.5 rounded-full bg-emerald-400"></span> ONLINE
-            </span>
-          </div>
-          <p class="font-mono text-sm text-sky-200">RV32I Core // FreeRTOS // Next.js</p>
-          <p class="text-xs text-slate-300 leading-relaxed">Rendering immersive 3D spatial interface with dynamic lighting vectors and real-time hardware topology.</p>
-          <div class="pt-2 border-t border-slate-4
+    <p style="margin-top: 30px; font-size: 14px; color: #94a3b8;">
+      Status: Live &amp; Operational // GitHub: <a href="https://github.com/Shahzaibsz99" style="color: #38bdf8;" target="_blank">Shahzaibsz99</a>
+    </p>
+  </div>
+</body>
+</html>
